@@ -2,13 +2,14 @@
 <html lang="en" ng-app="practica">
 <head>
     <meta charset="UTF-8">
-    <title>ejercicios angular</title>
+    <title>Ocultando cosas erroneas</title>
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="../node_modules/materialize-css/dist/css/materialize.css">
 </head>
 <body>
+    <!--     si se prduce un error en el código, se muestra el "cargando..."-->    
+    <h1 ng-bind="'Suma de dos números: ' + (1+1)">Cargando...</h1>
 
-    {{1+1}}
     <script src="../node_modules/jquery/dist/jquery.js"></script>
     <script src="../node_modules/materialize-css/dist/js/materialize.js"></script>
     <script src="../node_modules/angular/angular.js"></script>
