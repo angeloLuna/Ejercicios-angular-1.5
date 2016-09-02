@@ -2,14 +2,37 @@
 <html lang="en" ng-app="practica">
 <head>
     <meta charset="UTF-8">
-    <title>Ocultando cosas erroneas</title>
+    <title>validando inputs</title>
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="../node_modules/materialize-css/dist/css/materialize.css">
 </head>
 <body>
-    <!--     si se prduce un error en el código, se muestra el "cargando..."-->    
-    <h1 ng-bind="'Suma de dos números: ' + (1+1)">Cargando...</h1>
+    <div class="container row">    
+        <h1>Jelpmi!</h1> 
+        <div class="col s12 m12 l12">
 
+            <!-- novalidate desactivva las validaciones por defecto de HTML5 -->
+            <form id="formulario" name="formulario" novalidate>
+                <label>Nombre</label>
+                <input type="text" name="nombre" class="form-control" ng-model="orden.nombre" required>
+
+                <label>Email</label>
+                <input type="email" name="email" class="form-control" ng-model="orden.email" required>
+
+                <!-- Input con forma de barra de rango, label refleja la cantidad devuelta por el input -->
+                <label >¿cuántas horas deseas? {{orden.cantidad}}</label>
+                <input type="range" name="cantidad" ng-model="orden.cantidad" min="1" max="10" step="1">
+                
+                <!-- Muestra el "OK" cuando el formulario es válido -->
+                <div ng-show="formulario.$valid">ok</div>
+                <br>
+                
+                <!-- Deshabilita el boton submit hasta que el formulario completo sea válido -->
+                <input ng-disabled="formulario.$invalid" class="btn" type="submit" value="oredenar">
+            </form>
+        </div>
+    </div>
+    
     <script src="../node_modules/jquery/dist/jquery.js"></script>
     <script src="../node_modules/materialize-css/dist/js/materialize.js"></script>
     <script src="../node_modules/angular/angular.js"></script>
