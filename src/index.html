@@ -7,29 +7,47 @@
     <link rel="stylesheet" href="../node_modules/materialize-css/dist/css/materialize.css">
 </head>
 <body>
-    <div class="container row">    
+    <!-- Controlador agregado al div -->
+    <div class="container row" ng-controller="jelpMi">    
         <h1>Jelpmi!</h1> 
         <div class="col s12 m12 l12">
 
-            <!-- novalidate desactivva las validaciones por defecto de HTML5 -->
-            <form id="formulario" name="formulario" novalidate>
+            <!-- novalidate desactiva las validaciones por defecto de HTML5 -->
+            <form id="formulario" name="formulario" ng-submit="ordenarServicio()" novalidate ng-hide="servicioOK">
                 <label>Nombre</label>
                 <input type="text" name="nombre" class="form-control" ng-model="orden.nombre" required>
+                
+                <!-- Si el nombre está vacio y el boton submit es clickeado se muestra la alerta -->
+                <div ng-show="!orden.nombre && formulario.$submitted" class="alert alert-warning">
+                    Debes rellenar esta casilla
+                </div>
 
                 <label>Email</label>
-                <input type="email" name="email" class="form-control" ng-model="orden.email" required>
+                <input type="email" name="email" class="form-control" ng-model="orden.email" >
+                
+                <div ng-show="!orden.email && formulario.$submitted" class="alert alert-warning">
+                    Debes rellenar esta casilla
+                </div>
 
                 <!-- Input con forma de barra de rango, label refleja la cantidad devuelta por el input -->
                 <label >¿cuántas horas deseas? {{orden.cantidad}}</label>
                 <input type="range" name="cantidad" ng-model="orden.cantidad" min="1" max="10" step="1">
                 
+                <div class="alert" ng-show="orden.cantidad<3">
+                    El mínimo son tres horas
+                </div>
                 <!-- Muestra el "OK" cuando el formulario es válido -->
-                <div ng-show="formulario.$valid">ok</div>
+                <div ng-show="formulario.$valid">Los valores son corectos</div>
                 <br>
                 
-                <!-- Deshabilita el boton submit hasta que el formulario completo sea válido -->
-                <input ng-disabled="formulario.$invalid" class="btn" type="submit" value="oredenar">
+                <input class="btn" type="submit" value="ordenar">
             </form>
+            
+            <!-- Cuando se ejecuta la función del boton se muestran los resultados -->
+            <div ng-cloak ng-show="servicioOK" class="">
+                <h3>Servicio Agendado</h3>
+                <h4>{{orden.cantidad}} horas para {{orden.nombre}} ({{orden.email}})</h4>
+            </div>
         </div>
     </div>
     
@@ -37,5 +55,6 @@
     <script src="../node_modules/materialize-css/dist/js/materialize.js"></script>
     <script src="../node_modules/angular/angular.js"></script>
     <script src="app/app.js"></script>
+    <script src="app/controllers/main.js"></script>
 </body>
 </html> 
